@@ -34,6 +34,30 @@ export class City {
   }
 }
 
+export class WeatherIcon {
+  private _name: string;
+  public _imageUri: string; 
+
+  constructor(name: string, uri: string) {
+    this._name = name;
+    this._imageUri = uri;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  set name(value: string) {
+    this._name = value;
+  }
+
+  get imageUri(): string {
+    return this._imageUri;
+  }
+
+   
+}
+
 export class Weather {
   private _at: string;
   private _visibility: number;

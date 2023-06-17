@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, ImageBackground, TouchableOpacity, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch, useSelector } from 'react-redux';
+import { getWeathersIconList } from '../thunk/thunkListWeatherIcon';
 import { City, Weather } from '../data/stub';
 import { getImageSource } from './ImageWeatherType';
 
@@ -9,14 +11,23 @@ type MeteoProps = {
   weather : Weather
 }
 
+
 export function WeatherCard(props: MeteoProps) {
- 
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.IconsReducer.weathersIcons);
+  useEffect(() => {
+    
+    const loadWeathersIcons = async () => {
+         dispatch(getWeathersIconList());
+     };
+    loadWeathersIcons();
+  }, [dispatch]);
+  
+  const hh = data.filter((item) =>
+item.name.includes("Dégagé"))
+  
+//console.log(hh[0]._imageUri);
 
-  const [showPopup, setShowPopup] = useState(false);
-
-  const togglePopup = () => {
-    setShowPopup(!showPopup);
-  };
 
   return (
     
@@ -29,7 +40,9 @@ export function WeatherCard(props: MeteoProps) {
       <View style={styles.contentContainer}>
         <View style={styles.imageContainer}>
           <Image
-            source={getImageSource(props.weather.weatherType)}
+            source= {{ uri: data.filter(() =>
+              props.weather.weatherType
+              )[0]._imageUri  }}
             style={styles.image}
           />
           <Text style={styles.title} > {props.weather.weatherType} </Text>
@@ -68,14 +81,7 @@ export function WeatherCard(props: MeteoProps) {
          </View>
 
       </View>
-       <Modal visible={showPopup} animationType="fade"   >
-        <View style={styles.popupContainer}>
-          <Text style={styles.popupText}>Popup content</Text>
-          <TouchableOpacity onPress={togglePopup} style={styles.closeButton}>
-            <Icon name="close" style={styles.closeIcon}  />
-          </TouchableOpacity>
-        </View>
-      </Modal>
+       
     </View>
     
   
@@ -112,6 +118,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 80,
+    backgroundColor: 'blue',
     height: 80,
     borderRadius: 15,
   },
@@ -166,4 +173,8 @@ const styles = StyleSheet.create({
   },
 });
 
+
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
+}
 
