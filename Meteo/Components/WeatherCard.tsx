@@ -4,34 +4,26 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWeathersIconList } from '../thunk/thunkListWeatherIcon';
 import { City, Weather } from '../data/stub';
-import { getImageSource } from './ImageWeatherType';
 
 type MeteoProps = {
   city : City,
   weather : Weather
 }
 
-
 export function WeatherCard(props: MeteoProps) {
   const dispatch = useDispatch();
   const data = useSelector(state => state.IconsReducer.weathersIcons);
   useEffect(() => {
-    
     const loadWeathersIcons = async () => {
          dispatch(getWeathersIconList());
      };
     loadWeathersIcons();
   }, [dispatch]);
   
-  const hh = data.filter((item) =>
-item.name.includes("Dégagé"))
-  
 //console.log(hh[0]._imageUri);
-
 
   return (
     
-   
     <View style={styles.container}>
        
       <View style={styles.titleContainer}>
@@ -83,13 +75,10 @@ item.name.includes("Dégagé"))
       </View>
        
     </View>
-    
-  
   );
 };
 
 const styles = StyleSheet.create({
-  
   container: {
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
     borderRadius: 8,
@@ -100,7 +89,6 @@ const styles = StyleSheet.create({
     width: '75%', // 3/4 de la largeur de l'écran
   },
   titleContainer: {
-    
     padding: 8,
   },
   title: {
@@ -172,9 +160,3 @@ const styles = StyleSheet.create({
     color: '#333333',
   },
 });
-
-
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}
-

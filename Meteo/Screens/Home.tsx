@@ -51,9 +51,6 @@ import { getWeathersList } from '../thunk/thunkListWeather';
       <ActivityIndicator size="large" color="#0000ff" /> // Indicateur de chargement
     ) : (
 
-  
-
-     
       <FlatList refreshControl={ <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         data={data.filter((item: { city: { name: string; }; }) => item.city.name.toLowerCase().includes(search.toLowerCase()))}
         renderItem={({ item }) => (
@@ -62,6 +59,7 @@ import { getWeathersList } from '../thunk/thunkListWeather';
           </TouchableHighlight>
         )}
         keyExtractor={(item) => item.city.name}
+        
       />   ) }
       
     </View>

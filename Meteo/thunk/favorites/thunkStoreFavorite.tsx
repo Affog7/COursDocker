@@ -2,22 +2,21 @@
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Weather } from "../../data/stub";
-import { addToFavorites, setFavorites } from "../../redux/actions/ActionFavorites";
-import { fetchFavorites } from "./thunkListFavorites";
+import { setFavorites } from "../../redux/actions/ActionFavorites";
+import { BASE_STORAGE_NAME } from "../../redux/constants";
+import { fetchFavoritesByCity } from "./thunkListByCity";
 
- 
-export const insertFavorite =( favorite ) => {
+export const insertFavorite =( favorite : Weather ) => {
     return async (dispatch, getState) => {
       try {
-      
         // Récupérez les favoris actuels du state
         const { favorites   } = getState().FavoritesReducer;
        
-        dispatch(fetchFavorites())
-        console.log("fffffff"+favorites)
+        dispatch(fetchFavoritesByCity(favorite.city.name))
+        //console.log("fffffff"+favorites.length)
         // Ajoutez le nouveau favori
         const updatedFavorites = [...favorites, favorite ];
-          await storeFavoriteToJSON(updatedFavorites);
+          await storeFavoriteToJSON(updatedFavorites, favorite.city.name);
 
         // Mettez à jour le store Redux avec les nouveaux favoris
         dispatch(setFavorites(updatedFavorites));
@@ -30,11 +29,11 @@ export const insertFavorite =( favorite ) => {
     };
   };
   
-const storeFavoriteToJSON = async (weathers) => {
+const storeFavoriteToJSON = async (weathers, cityName) => {
     try {
       const jsonWeathers = JSON.stringify(weathers)
-      console.log(jsonWeathers);
-      await AsyncStorage.setItem('favorite_weathers', jsonWeathers);
+     // console.log(weathers.length);
+      await AsyncStorage.setItem(BASE_STORAGE_NAME+cityName, jsonWeathers);
     } catch (e) {
       console.log("An error occurred", e);
     }

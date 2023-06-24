@@ -30,16 +30,12 @@ import Favorite from '../Screens/Favorites';
               >
                <Button title={"Favoris"} />
               </TouchableHighlight>
-            
             )
           }}/> 
           <Stack.Screen name="Favorite"  component={Favorite}   options={{
             title: 'Favoris',
-           
           }}/> 
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
-
- 

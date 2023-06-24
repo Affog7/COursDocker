@@ -5,30 +5,32 @@ import { Weather } from '../data/stub';
 import { addToFavorites } from '../redux/actions/ActionFavorites';
 import { fetchFavorites } from '../thunk/favorites/thunkListFavorites';
 import { insertFavorite } from '../thunk/favorites/thunkStoreFavorite';
+import { fetchFavoritesByCity } from '../thunk/favorites/thunkListByCity';
+import { FavoriteWeather } from '../Components/FavoriteComponent';
  
-const FavoritesComponent = () => {
+const FavoritesComponent = ({route}) => {
+  const weather : Weather = route.params.weather
+
   const [newFavorite,setNewFavorite] = useState('');
   const favorites : [Weather] = useSelector(state => state.FavoritesReducer.favorites);
   const dispatch = useDispatch();
 
-  
-  
   useEffect(() => {
     const loadWeathers = async () => {
-      
-        dispatch(fetchFavorites());
-       console.log("le total est : "+ favorites[0]["_city"]["_name"])
+        dispatch(fetchFavoritesByCity(weather.city.name));
+       //console.log("le total est : "+ favorites[0]["_city"]["_name"])
     };
     loadWeathers();
-     
   }, [dispatch]);
   return (
     <View>
-      <Text>Favorites</Text>
+      <Text>Favoris de la ville : {weather.city.name}</Text>
       <FlatList
         data={favorites}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => <Text>{item["_at"]}</Text>}
+      
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => <FavoriteWeather weather={item} city={item._city}  />}
       />
       <TextInput
         value={newFavorite}
@@ -37,6 +39,5 @@ const FavoritesComponent = () => {
      </View>
   );
 };
-
 
 export default FavoritesComponent;

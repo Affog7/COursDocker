@@ -1,5 +1,4 @@
  
-
 export const getImageSource = (weatherType) => {
     switch (weatherType) {
       case 'Ensoleillé':
@@ -12,5 +11,15 @@ export const getImageSource = (weatherType) => {
         return require('../assets/Degage.png');
       default:
         return require('../assets/type.png');
+    }
+  };
+
+  export const getTemperatureColor = (temperature) => {
+    if (temperature < 10) {
+      return '#00aaff'; // Bleu pour les températures froides
+    } else if (temperature > 30) {
+      return '#ff4500'; // Rouge pour les températures chaudes
+    } else {
+      return '#000000'; // Noir par défaut
     }
   };
