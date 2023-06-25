@@ -11,8 +11,8 @@ steps:
       - npm install
       - sonar-scanner -Dsonar.projectKey=PROJECT_NAME -Dsonar.sources=. -Dsonar.host.url=$${PLUGIN_SONAR_HOST} 
         -Dsonar.login=$${PLUGIN_SONAR_TOKEN}
-    secrets: [ SECRET_SONAR_LOGIN ]
+    secrets: [ PLUGIN_SONAR_TOKEN ]
     settings:
       sonar_host: https://codefirst.iut.uca.fr/sonar/
       sonar_token:
-        from_secret: SECRET_SONAR_LOGIN
+        from_secret: PLUGIN_SONAR_TOKEN
