@@ -13,12 +13,12 @@
 <img size=500 src="https://share.balsamiq.com/c/o1Hmu5p1qDXA4mbhw136Zk.png" />   |<img size=500 src="https://share.balsamiq.com/c/68xffMTdJcTdx9QhRhqPDh.png" />  
 
 
-## MeteoApp Screenshots (Réalisatons)
+## MeteoApp Screenshots (Réalisations)
   Accueil                 |   Page Detail      |  Page Favoris                 | Liste Favoris                
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 <img size=500 src="Documentation/images/home.png" />   |<img size=500 src="Documentation/images/detail.png" />  | <img size=500 src="Documentation/images/favorite.png" />  | <img size=500 src="Documentation/images/favorites.png" />  
 
-## Exploication
+## Explication
 
 *  Accueil
     - Affichage de la liste des météos par ville,
@@ -68,6 +68,30 @@
         + [x] all reducers case (2 pts)
         + [-] one UI Component (3 pts)
 
+## Directory Structure
+```
+source
+│  
+└───Meteo
+    │───Components
+    |    
+    │───Data
+    │      
+    |   
+    │───redux
+    |    │──actions
+    |    │──reducers
+    |    │──store.ts
+    |    └──constants.ts
+    |
+    │───Screens
+    |
+    |       
+    │───tests
+    |    
+    └───thunk
+         
+```
 ### Installation
 
 ```
