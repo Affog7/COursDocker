@@ -18,7 +18,7 @@ export const getImageSource = (weatherType) => {
     if (temperature < 10) {
       return '#00aaff'; // Bleu pour les températures froides
     } else if (temperature > 30) {
-      return '#fde880'; // Rouge pour les températures chaudes
+      return '#f80'; // Rouge pour les températures chaudes
     } else {
       return '#adcac0'; // Noir par défaut
     }
