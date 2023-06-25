@@ -1,23 +1,18 @@
 kind: pipeline
 type: docker
-name: CI
- 
-trigger:
-  event:
-    - push
+name: default
 
 steps:
-  - name: generate-and-deploy-docs
-    image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-docdeployer
-    volumes:
-      - name: docs
-        path: /docs
+  - name: sonar-analyses
+    image: hub.codefirst.iut.uca.fr/camille.petitalot/drone-sonarplugin-reactnative:latest
     commands:
-      - /entrypoint.sh
-    when:
-      branch:
-        - main
-
-volumes:
-- name: docs
-  temp: {}
+      - cd Source
+      
+      - npm install
+      - sonar-scanner -Dsonar.projectKey=PROJECT_NAME -Dsonar.sources=. -Dsonar.host.url=$${PLUGIN_SONAR_HOST} 
+        -Dsonar.login=$${PLUGIN_SONAR_TOKEN}
+    secrets: [ SECRET_SONAR_LOGIN ]
+    settings:
+      sonar_host: https://codefirst.iut.uca.fr/sonar/
+      sonar_token:
+        from_secret: SECRET_SONAR_LOGIN
