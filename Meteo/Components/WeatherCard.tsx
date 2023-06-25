@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWeathersIconList } from '../thunk/thunkListWeatherIcon';
 import { City, Weather } from '../data/stub';
+import { getTemperatureColor } from './ImageWeatherType';
 
 type MeteoProps = {
   city : City,
@@ -19,7 +20,8 @@ export function WeatherCard(props: MeteoProps) {
      };
     loadWeathersIcons();
   }, [dispatch]);
-  
+  const temperatureColor = getTemperatureColor(props.weather.temperature);
+
 //console.log(hh[0]._imageUri);
 
   return (
@@ -35,7 +37,7 @@ export function WeatherCard(props: MeteoProps) {
             source= {{ uri: data.filter(() =>
               props.weather.weatherType
               )[0]._imageUri  }}
-            style={styles.image}
+            style={[styles.image, {backgroundColor: temperatureColor}]}
           />
           <Text style={styles.title} > {props.weather.weatherType} </Text>
         </View>
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 80,
-    backgroundColor: 'blue',
+  
     height: 80,
     borderRadius: 15,
   },
