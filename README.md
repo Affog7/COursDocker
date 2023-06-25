@@ -1,3 +1,6 @@
+[![Build Status](https://codefirst.iut.uca.fr/api/badges/augustin.affognon/MeteoApp/status.svg)](https://codefirst.iut.uca.fr/augustin.affognon/MeteoApp)
+
+
 # Website
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
