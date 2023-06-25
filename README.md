@@ -17,7 +17,28 @@
   Accueil                 |   Page Detail      |  Page Favoris                 | Liste Favoris                
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 <img size=500 src="Documentation/images/home.png" />   |<img size=500 src="Documentation/images/detail.png" />  | <img size=500 src="Documentation/images/favorite.png" />  | <img size=500 src="Documentation/images/favorites.png" />  
- 
+
+## Exploication
+
+*  Accueil
+    - Affichage de la liste des météos par ville,
+    - Search bar pour rechercher
+
+* Page de Détails
+    - Affichage avec des couleurs et images dynamiques des autres informations complètes sur la météo du jour d'une ville
+    - Un boutton [+] pour ajouter la météo actuelle de la ville au Favoris
+    - Un boutton [Favoris] en bas de la page pour naviger sur la liste des Favoris
+
+* Page de Favoris
+
+    [*] Page de tous les favoris de tous les villes
+
+        - Affiche de la liste des villes, pour naviger sur la page de favoris de la ville
+
+    [*] Page de Favoris d'une ville
+    
+        - Les favoris sont affichés avec un composant UI qui comporte un boutton de suppression du favoris
+
 
 ## Notation checklist
 
