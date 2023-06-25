@@ -1,20 +1,17 @@
 import { FETCH_WEATHER } from "../constants";
 
-  
 const initialState = {
   weathers: [],
-  favoriteWeathers: [],
-}
-//@ts-ignore
-export default appReducer = (state = initialState, action) => { ///action event receved
+  cities: [],
+};
+
+const appReducer = (state = initialState, action) => {
   switch (action.type) {
-    
     case FETCH_WEATHER:
-     
-      // @ts-ignore
-      return {...state, weathers: action.payload};
-   
+      return { ...state, weathers: action.payload, cities: action.cities };
     default:
       return state;
   }
-}
+};
+
+export default appReducer;

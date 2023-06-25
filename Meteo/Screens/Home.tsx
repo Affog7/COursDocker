@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, FlatList, ActivityIndicator, StyleSheet, TextInput, TouchableHighlight, View, RefreshControl } from 'react-native';
+import { Button, FlatList, ActivityIndicator, StyleSheet, TextInput, TouchableHighlight, View, RefreshControl, ImageBackground } from 'react-native';
 import { WeatherCard } from '../Components/WeatherCard';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,11 +41,14 @@ import { getWeathersList } from '../thunk/thunkListWeather';
        
       <View>
       
-        <SearchBar
-          placeholder="Rechercher..."
-          onChangeText={(text) => setSearch(text)}
-          value={search}
-        />
+      <SearchBar
+        placeholder="Rechercher..."
+        onChangeText={(text) => setSearch(text)}
+        value={search}
+        containerStyle={styles.searchContainer}
+        inputContainerStyle={styles.inputContainer}
+        inputStyle={styles.input}
+      />
       </View>
       {isLoading ? (
       <ActivityIndicator size="large" color="#0000ff" /> // Indicateur de chargement
@@ -71,6 +74,20 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
+  },
+  searchContainer: {
+    backgroundColor: '#aba0e5',
+    borderBottomColor: 'transparent',
+    borderTopColor: 'transparent',
+    paddingHorizontal: 0,
+  },
+  inputContainer: {
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    borderBottomWidth: 0,
+  },
+  input: {
+    fontSize: 16,
   },
 });
 

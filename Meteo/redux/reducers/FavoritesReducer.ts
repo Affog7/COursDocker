@@ -2,9 +2,6 @@
 
 import { ADD_TO_FAVORITES, FETCH_FAVORITE, REMOVE_FROM_FAVORITES, SET_FAVORITES } from "../constants";
 
- 
-// favoritesReducer.js
-
 const initialState = {
     favorites: [],
   };
@@ -15,13 +12,12 @@ const initialState = {
         return {
           ...state,
           favorites: [...state.favorites, action.payload],
-          
         };
 
         case FETCH_FAVORITE:
         return {
           ...state,
-          favorites: [...state.favorites, action.payload],
+          favorites: [...state.favorites],
         };
 
       case REMOVE_FROM_FAVORITES:
@@ -39,6 +35,4 @@ const initialState = {
     }
   };
   
-   
-
 export default FavoritesReducer;

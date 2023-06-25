@@ -64,7 +64,7 @@ alignItems: 'center',
 justifyContent: 'center',
 },
 buttonAddFavorite: {
-backgroundColor: '#ead9a',
+backgroundColor: '#ad9a',
 padding: 10,
 borderRadius: 5,
 marginBottom: 10,

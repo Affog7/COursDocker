@@ -1,43 +1,96 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, TextInput, Button,Text } from 'react-native';
+import { Button, FlatList, ActivityIndicator, StyleSheet, TextInput, TouchableHighlight, View, RefreshControl, ImageBackground } from 'react-native';
+import { WeatherCard } from '../Components/WeatherCard';
+import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Weather } from '../data/stub';
-import { addToFavorites } from '../redux/actions/ActionFavorites';
-import { fetchFavorites } from '../thunk/favorites/thunkListFavorites';
-import { insertFavorite } from '../thunk/favorites/thunkStoreFavorite';
-import { fetchFavoritesByCity } from '../thunk/favorites/thunkListByCity';
-import { FavoriteWeather } from '../Components/FavoriteComponent';
- 
-const FavoritesComponent = ({route}) => {
-  const weather : Weather = route.params.weather
+import { SearchBar } from 'react-native-elements';
+ import { getWeathersIconList } from "../thunk/thunkListWeatherIcon";
+import { getWeathersList } from '../thunk/thunkListWeather';
+import CityInfo from '../Components/CityInfo';
 
-  const [newFavorite,setNewFavorite] = useState('');
-  const favorites : [Weather] = useSelector(state => state.FavoritesReducer.favorites);
+ const Favorite = () => {
+  const [search, setSearch] = useState('');
+  const navigation = useNavigation();
+  const data = useSelector(state => state.appReducer.weathers);
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = () => {
+    setRefreshing(true);
 
+      dispatch(getWeathersList());
+      dispatch(getWeathersIconList());
+    setRefreshing(false);
+  };
+  
   useEffect(() => {
     const loadWeathers = async () => {
-        dispatch(fetchFavoritesByCity(weather.city.name));
-       //console.log("le total est : "+ favorites[0]["_city"]["_name"])
+      setIsLoading(true);  
+        dispatch(getWeathersList());
+      setIsLoading(false);
     };
     loadWeathers();
+    const loadWeathersIcons = async () => {
+      setIsLoading(true);  
+        dispatch(getWeathersIconList());
+      setIsLoading(false);
+    };
+    loadWeathersIcons();
   }, [dispatch]);
+
   return (
-    <View>
-      <Text>Favoris de la ville : {weather.city.name}</Text>
-      <FlatList
-        data={favorites}
-        keyExtractor={(item, index) => index.toString()}
+    <View style={styles.container}>
+       
+      <View>
       
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <FavoriteWeather weather={item} city={item._city}  />}
+      <SearchBar
+        placeholder="Rechercher..."
+        onChangeText={(text) => setSearch(text)}
+        value={search}
+        containerStyle={styles.searchContainer}
+        inputContainerStyle={styles.inputContainer}
+        inputStyle={styles.input}
       />
-      <TextInput
-        value={newFavorite}
-        onChangeText={text => setNewFavorite(text)}
-      />
-     </View>
+      </View>
+      {isLoading ? (
+      <ActivityIndicator size="large" color="#0000ff" /> // Indicateur de chargement
+    ) : (
+
+      <FlatList refreshControl={ <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        data={data.filter((item: { city: { name: string; }; }) => item.city.name.toLowerCase().includes(search.toLowerCase()))}
+        renderItem={({ item }) => (
+          <TouchableHighlight onPress={() => navigation.navigate("Favorite", { "weather": item })}>
+            <CityInfo city={item.city}  />
+          </TouchableHighlight>
+        )}
+        keyExtractor={(item) => item.city.name}
+        
+      />   ) }
+      
+    </View>
   );
 };
 
-export default FavoritesComponent;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff',
+  },
+  searchContainer: {
+    backgroundColor: '#aba0e5',
+    borderBottomColor: 'transparent',
+    borderTopColor: 'transparent',
+    paddingHorizontal: 0,
+  },
+  inputContainer: {
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    borderBottomWidth: 0,
+  },
+  input: {
+    fontSize: 16,
+  },
+});
+
+export default Favorite;

@@ -8,6 +8,7 @@
 /Documentation/docusaurus.docusaurus
 /Documentation/docusaurus.cache-loader
 /Meteo/node_modules
+/node_modules
 # Misc
 .DS_Store
 .env.local
@@ -18,4 +19,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-node_modules
+node_modules/

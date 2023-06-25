@@ -1,41 +1,86 @@
 // Navigation.js
 
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from '../Screens/Home';
-import Details from '../Screens/Details';
 import React from 'react';
-import { Button, Icon } from 'react-native-elements';
-import { TouchableHighlight } from 'react-native-gesture-handler';
-import Favorite from '../Screens/Favorites';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Icon } from 'react-native-elements'; 
+import Details from '../Screens/Details';
+import Home from '../Screens/Home';
+import Favorites from '../Screens/Favorites';
+import { NavigationContainer } from '@react-navigation/native';
+import Favorite from '../Screens/Favorite';
 
-   export default function Navigation() {
-    const BottomTabNavigator = createBottomTabNavigator();
-    const Stack = createStackNavigator();
-    const navigatiocn = useNavigation;
- 
-    return (
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const HomeStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Home"
+      
+      component={Home}
+      options={({ navigation }) => ({
+         headerRight: () => (
+          <Icon
+            name="stars"
+            onPress={() => navigation.navigate('Favorite')}
+          />
+        ),
+      })}
+    />
+    <Stack.Screen
+      name="Details"
+      component={Details}
+      options={({ navigation }) => ({
+        title: 'Détails',
+        headerRight: () => (
+          <Icon
+            name="favorite"
+            onPress={() => navigation.navigate('Favorite')}
+          />
+        ),
+      })}
+    />
+
+<Stack.Screen
+      name="Favorite"
+      component={Favorite}
+      options={({ navigation }) => ({
+        title: 'Favoris',
+      })}
+    />
+  </Stack.Navigator>
+);
+
+const Navigation = () => {
+  return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" >
-        <Stack.Screen name="Home" component={Home} options={{ title : 'Accueil',  headerRight: () => (
-              <TouchableHighlight >
-             <Icon name="stars"  />
-            </TouchableHighlight>) }} />
-
-        <Stack.Screen name="Details"  component={Details}   options={{
-            title: 'Détails',
-            headerRight: () => (
-              <TouchableHighlight 
-              >
-               <Button title={"Favoris"} />
-              </TouchableHighlight>
-            )
-          }}/> 
-          <Stack.Screen name="Favorite"  component={Favorite}   options={{
-            title: 'Favoris',
-          }}/> 
-      </Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Home"
+          
+          component={HomeStack}
+          options={{
+            headerShown: false,
+            tabBarLabel: 'Accueil',
+            tabBarIcon: () => (
+              <Icon name="home" type="material" color='#aba0e5' />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Favorites"
+          component={Favorites}
+          options={{
+            tabBarLabel: 'Favoris',
+            tabBarIcon: () => (
+              <Icon name="favorite" type="material" color='#aba0e5' />
+            ),
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
-  )
-}
+  );
+};
+
+export default Navigation;

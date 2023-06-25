@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor:'rgba(200, 200, 200, 0.5)',
     marginBottom: 16,
+    marginTop: 5,
     alignSelf: 'center',
     width: '75%', // 3/4 de la largeur de l'écran
   },
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 20,
-    color: '#333333',
+    color: '#aba0e5',
     borderWidth: 1,
     borderColor: '#333333',
     borderRadius: 8,
