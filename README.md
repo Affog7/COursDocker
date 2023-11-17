@@ -124,5 +124,19 @@ Jérôme Petazzoni
 ## git checkout ( hash, tag, nom de branch)
 ## le tronc c'est la premier branch sur laquelle on merge tout
 ## git checkout -b nom_branche
-## squasher
+## squasher 
+## Keybase.io : signé un commit
+
+
+
+#### Fondamentaux sur Docker
+ ** Docker : le principe d'utiliser un container pour deployer une application
+     *** Container : sert à tester (sans vm) isoler l'influence d'une application A sur une machine B
+     *** Télécharger une image de container : docker pull _nom_d_image
+     *** Créer un container à partir d'une image : docker run --name _nom_container_  _nom_d_image -iTd (d: exécuter en arrière plan) (std in & out)  
+     *** tty pour teletype 
+     *** -p 9999:8083:udp (default tcp) -> port mapping P_i:P_a 
+	** Couche : TCP : UDP
+
+
 
