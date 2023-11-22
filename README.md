@@ -140,3 +140,5 @@ Jérôme Petazzoni
 
 
 
+---- instruction docker run : docker run .............. -e MAVAR=_valeur_
+--- docker exec _nom_ctn -it _nom_ctn _cmd_a_exe :: sh -c "echo salut"
